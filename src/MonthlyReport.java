@@ -21,10 +21,10 @@ public class MonthlyReport {
                 String line = lines[j];//циклом передаем значения построчно "Новогодняя ёлка,TRUE,1,100000"
                 String[] parts = line.split(",");//теперь делим эти строки на значения и получаем массив["Новогодняя ёлка", "TRUE", "1" , "100000"]
                 String item_name = parts[0];//парсим в переменные
-                boolean is_expense = Boolean.parseBoolean(parts[1]);
+                boolean expense = Boolean.parseBoolean(parts[1]);
                 int quantity = Integer.parseInt(parts[2]);
                 double sum_of_one = Double.parseDouble(parts[3]);
-                MonthlyRecord record = new MonthlyRecord(item_name, is_expense, quantity, sum_of_one);
+                MonthlyRecord record = new MonthlyRecord(item_name, expense, quantity, sum_of_one);
                 list.add(record);//передаем значения в лист
             }
             records.put(i, list);//добавляем в мапу лист

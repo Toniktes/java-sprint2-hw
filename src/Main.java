@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         YearReport report = null;
-        String year = null;
+        String year = null;// null оставил, если сразу сделать new то при неправильном адресе отчета, начинает при запуске выдавать, что невозможно прочитать файл, а мне нужно только при вводе команды
         MonthlyReport reports = null;
         while (true) {
             printMenu();
@@ -18,14 +17,10 @@ public class Main {
                         System.out.println("Отчет по месяцам считан");
                         break;
                     case 2:
-                        try {
-                            System.out.println("Введите год за который хотите получить отчет:");
-                            year = scanner.nextLine();
-                            report = new YearReport("resources/y." + year + ".csv");
-                            System.out.println("Отчет за " + year + " год считан");
-                            break;
-                        } catch (NullPointerException e) {
-                        }
+                        System.out.println("Введите год за который хотите получить отчет:");
+                        year = scanner.nextLine();
+                        report = new YearReport("resources/y." + year + ".csv");
+                        break;
                     case 3:
                         if (report != null && reports != null) {
                             for (int i = 1; i < reports.months.size(); i++) {
@@ -52,7 +47,7 @@ public class Main {
                         }
                         break;
                     case 5:
-                        if (year != null) {
+                        if (report != null) {
                             System.out.println("Информация о годовом отчете:");
                             System.out.println("Год: " + year);
                             report.dataForYear();

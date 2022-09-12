@@ -12,15 +12,20 @@ public class YearReport {
     public Map<Integer, Double> yearExpense = new HashMap<>();//мапа для сравнения(расходы)
 
     public YearReport(String path) {//конструктор
-        String data = readFileContentsOrNull(path);//Передаем значения из файла в строку
+        String data;
+        if((data = readFileContentsOrNull(path)) == null){
+            return;//Передаем значения из файла в строку
+        } else {
+            System.out.println("Отчет за год считан");
+            data = readFileContentsOrNull(path);
         String[] lines = data.split("\r?\n");//делим строку по разделителю
         for (int i = 1; i < lines.length; i++) {
             String line = lines[i];//циклом передаем значения построчно "01,1500,true"
             String[] parts = line.split(",");//теперь делим эти строки на значения и получаем массив["01" ,"1500", "true"]
             int month = Integer.parseInt(parts[0]);//парсим в переменные
             int amount = Integer.parseInt(parts[1]);
-            boolean is_expense = Boolean.parseBoolean(parts[2]);
-            YearlyLineRecord record = new YearlyLineRecord(month, amount, is_expense);
+            boolean expense = Boolean.parseBoolean(parts[2]);
+            YearlyLineRecord record = new YearlyLineRecord(month, amount, expense);
             records.add(record);//и передаем этот лист в классовый лист
         }
         int j = 1;
@@ -45,7 +50,7 @@ public class YearReport {
             yearExpense.put(j, expense);//добавляем расходы в мапу
             j++;
         }
-    }
+    }}
 
     void dataForYear() {//метод для информации о годовом отчете
         double averegeIncome = 0;
